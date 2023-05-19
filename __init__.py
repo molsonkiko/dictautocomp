@@ -1,0 +1,1 @@
+from dictautocomp.trie import Trie
