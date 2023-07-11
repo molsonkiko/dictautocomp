@@ -20,10 +20,11 @@ for name in stuff:
             for member in dir(enum_)
             if is_enum(member)))
 
-completions.append('editor')
-completions.extend(('editor.' + method
-    for method in dir(editor)
-    if not method.startswith('_')))
+for editor_name in ['editor', 'editor1', 'editor2']:
+    completions.append(editor_name)
+    completions.extend(('%s.%s' % (editor_name, method)
+        for method in dir(editor)
+        if not method.startswith('_')))
 
 completions.append('notepad')
 completions.extend(('notepad.' + method

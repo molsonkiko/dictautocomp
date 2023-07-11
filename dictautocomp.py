@@ -119,6 +119,12 @@ class DAC:
                         ignorecase=options['ignorecase'],
                         min_autocomplete_length=options['min_autocomplete_length']
                     )
+        else:
+            # default settings if no settings file:
+            # include PythonScript autocompletions as an example
+            from dictautocomp.get_pythonscript_autocompletions import autocomp_file # regenerate autocompletions
+            pythonscript_filename = str((CURDIR / 'pythonscript_autocompletions.txt').absolute())
+            self.wordlists_to_completers[pythonscript_filename] = AutoCompleter(['py', 'foobar'], False, 3, pythonscript_filename)
         if files_not_found:
             self.dump_settings()
 

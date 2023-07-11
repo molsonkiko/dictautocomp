@@ -8,4 +8,13 @@ In addition, you can define different autocompletion lists for different file ty
 
 ![example of autocompletion with this plugin](/example.PNG)
 
-This plugin requires [PythonScript](https://github.com/bruderstein/PythonScript/releases) version 3 or higher.
+## Installation
+
+1. Download version 3 or higher of the [PythonScript plugin](https://github.com/bruderstein/PythonScript/releases).
+2. [Download the code](/dictautocomp.zip) of this repo.
+3. Unzip the downloaded code into a folder named `dictautocomp`.
+4. Drop the new `dictautocomp` folder in `%Appdata%\Roaming\Notepad++\plugins\config\PythonScript\scripts`
+5. Go to `Plugins->Python Script->Configuration...` from the main menu, find `dictautocomp\dictautocomp.py` from the list as shown in the below image, select `User Scripts`, and click the leftmost `Add` button.
+    ![Add dictautocomp to PythonScript plugin menu](/add_dictautocomp_to_plugin_menu.PNG)
+6. At this point `dictautocomp` will be on the short list of PythonScript scripts, and if desired you can add a keyboard shortcut from `Macro->Modify Shortcut/Delete Macro...` from the main menu, as shown in the below image.
+    ![Add keyboard shortcut for dictautocomp](/add_dictautocomp_keyboard_shortcut.PNG)
