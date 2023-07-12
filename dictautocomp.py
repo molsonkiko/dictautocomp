@@ -126,6 +126,7 @@ class DAC:
             # default settings if no settings file:
             # include PythonScript autocompletions as an example
             from dictautocomp.get_pythonscript_autocompletions import autocomp_file # regenerate autocompletions
+            files_not_found = True
             pythonscript_filename = str((CURDIR / 'pythonscript_autocompletions.txt').absolute())
             self.wordlists_to_completers[pythonscript_filename] = AutoCompleter(['py', 'foobar'], False, 3, pythonscript_filename)
         if files_not_found:
@@ -160,9 +161,10 @@ class DAC:
             extensions = exts.split()
             minlen = int(minlen)
             remove_existing = is_yes(remove_existing_val)
-            if remove_existing and fname in self.wordlists_to_completers:
-                del self.wordlists_to_completers[fname]
-                self.dump_settings()
+            if remove_existing:
+                if fname in self.wordlists_to_completers:
+                    del self.wordlists_to_completers[fname]
+                    self.dump_settings()
                 return
             completer = AutoCompleter(extensions, ignorecase, minlen, fname)
             if completer.trie:
