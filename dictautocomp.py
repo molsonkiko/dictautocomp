@@ -19,6 +19,9 @@ def word_list_to_trie(fname: str, ignorecase: bool) -> TrieInterface:
     if ignorecase:
         return IgnoreCaseTrie(words)
     return Trie(words)
+    
+def is_yes(yesno):
+    return yesno and yesno[0].lower() == 'y'
 
 
 class AutoCompleter:
@@ -146,15 +149,21 @@ class DAC:
                 (f'word list filename: {fname}\r\n'
                 f'space-separated list of extensions to autocomplete for: {extensions}\r\n'
                 f'case-insensitive autocompletion (yes/no): {ignorecase_str}\r\n'
-                f'minimum length to suggest completions: {min_autocomplete_length}'))
+                f'minimum length to suggest completions: {min_autocomplete_length}\r\n'
+                'remove existing autocompletions for filename: no'))
             print(options)
             if not options:
                 return
-            fname, exts, ignorecase, minlen = [x.split(':', 1)[1].strip()
+            fname, exts, ignorecase, minlen, remove_existing_val = [x.split(':', 1)[1].strip()
                 for x in options.split('\r\n')]
-            ignorecase = ignorecase[0].lower() == 'y'
+            ignorecase = is_yes(ignorecase)
             extensions = exts.split()
             minlen = int(minlen)
+            remove_existing = is_yes(remove_existing_val)
+            if remove_existing and fname in self.wordlists_to_completers:
+                del self.wordlists_to_completers[fname]
+                self.dump_settings()
+                return
             completer = AutoCompleter(extensions, ignorecase, minlen, fname)
             if completer.trie:
                 break

@@ -18,3 +18,11 @@ In addition, you can define different autocompletion lists for different file ty
     ![Add dictautocomp to PythonScript plugin menu](/add_dictautocomp_to_plugin_menu.PNG)
 6. At this point `dictautocomp` will be on the short list of PythonScript scripts, and if desired you can add a keyboard shortcut from `Macro->Modify Shortcut/Delete Macro...` from the main menu, as shown in the below image. *NOTE: you will need to restart Notepad++ for dictautocomp to appear on this list.*
     ![Add keyboard shortcut for dictautocomp](/add_dictautocomp_keyboard_shortcut.PNG)
+    
+## Using Dictionary Autocompletion
+
+1. Run `Plugins->Python Script->dictautocomp`
+2. It will pop up a dialog showing you the current configuration; you can hit __OK__ here
+3. It will pop up a second dialog: if you want to add a new dictionary or remove a dictionary in the current config, fill out the form and hit __OK__; otherwise, hit __Cancel__ to *not* add another dictionary
+4. If you are in a file whose extension that matches the "extensions" field from either the "current configuration" from step 2 *or* the new dictionary configuration you added in step 3, then as you type, the auto-completion will include the words from the dictionary
+5. This auto-completion will continue until you exit Notepad++. The next time you run the application, you will have to run this script again.
