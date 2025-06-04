@@ -144,11 +144,12 @@ class DAC:
     def add_dictionary(self, fname='', extensions='', ignorecase=False, min_autocomplete_length=2) -> None:
         ignorecase_str = ['no', 'yes'][ignorecase]
         while True:
+            extensions_str = ' '.join(extensions) if isinstance(extensions, list) else extensions
             options = notepad.prompt(
                 'Add new autocompletion rules below',
                 'Add new autocompletion rules',
                 (f'word list filename: {fname}\r\n'
-                f'space-separated list of extensions to autocomplete for: {extensions}\r\n'
+                f'space-separated list of extensions to autocomplete for: {extensions_str}\r\n'
                 f'case-insensitive autocompletion (yes/no): {ignorecase_str}\r\n'
                 f'minimum length to suggest completions: {min_autocomplete_length}\r\n'
                 'remove existing autocompletions for filename: no'))
@@ -161,18 +162,18 @@ class DAC:
             extensions = exts.split()
             minlen = int(minlen)
             remove_existing = is_yes(remove_existing_val)
+            completer = AutoCompleter(extensions, ignorecase, minlen, fname)
             if remove_existing:
                 if fname in self.wordlists_to_completers:
                     del self.wordlists_to_completers[fname]
-                    self.dump_settings()
-                return
-            completer = AutoCompleter(extensions, ignorecase, minlen, fname)
+                break
             if completer.trie:
                 break
             # else file not found
             notepad.messageBox('Invalid filename', 'Invalid filename',
                 MESSAGEBOXFLAGS.OK | MESSAGEBOXFLAGS.ICONERROR)
-        self.wordlists_to_completers[fname] = completer
+        if completer.trie:
+            self.wordlists_to_completers[fname] = completer
         self.dump_settings()
 
     def bufferactivated(self, args):
